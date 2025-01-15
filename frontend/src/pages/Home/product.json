@@ -1,0 +1,202 @@
+[
+    {
+        "_id": 1,
+        "name": "Baseball Cap",
+        "price": 4211,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    },
+    {
+        "_id": 2,
+        "name": "Digital Alarm Clock",
+        "price": 4238,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 3,
+        "name": "Baseball Cap",
+        "price": 1406,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    },
+    {
+        "_id": 4,
+        "name": "Bluetooth Speaker",
+        "price": 2027,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 5,
+        "name": "Logo Mug",
+        "price": 4930,
+        "description": "Cool swag to show off your style",
+        "image": "https://picsum.photos/200/300",
+        "category": "Swag"
+    },
+    {
+        "_id": 6,
+        "name": "Noise-Cancelling Headphones",
+        "price": 3606,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 7,
+        "name": "Canvas Tote Bag",
+        "price": 1145,
+        "description": "Stylish and useful accessory",
+        "image": "https://picsum.photos/200/300",
+        "category": "Accessories"
+    },
+    {
+        "_id": 8,
+        "name": "Laptop Sleeve",
+        "price": 2890,
+        "description": "Cool swag to show off your style",
+        "image": "https://picsum.photos/200/300",
+        "category": "Swag"
+    },
+    {
+        "_id": 9,
+        "name": "Women's Hoodie",
+        "price": 2351,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    },
+    {
+        "_id": 10,
+        "name": "Smartphone Stand",
+        "price": 3148,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 11,
+        "name": "Drawstring Bag",
+        "price": 2531,
+        "description": "Cool swag to show off your style",
+        "image": "https://picsum.photos/200/300",
+        "category": "Swag"
+    },
+    {
+        "_id": 12,
+        "name": "Graphic Tee",
+        "price": 3437,
+        "description": "Cool swag to show off your style",
+        "image": "https://picsum.photos/200/300",
+        "category": "Swag"
+    },
+    {
+        "_id": 13,
+        "name": "Leather Belt",
+        "price": 1932,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    },
+    {
+        "_id": 14,
+        "name": "Knitted Scarf",
+        "price": 4788,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    },
+    {
+        "_id": 15,
+        "name": "Bluetooth Speaker",
+        "price": 4447,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 16,
+        "name": "Keychain",
+        "price": 2723,
+        "description": "Stylish and useful accessory",
+        "image": "https://picsum.photos/200/300",
+        "category": "Accessories"
+    },
+    {
+        "_id": 17,
+        "name": "Branded Pen",
+        "price": 3071,
+        "description": "Cool swag to show off your style",
+        "image": "https://picsum.photos/200/300",
+        "category": "Swag"
+    },
+    {
+        "_id": 18,
+        "name": "VR Headset",
+        "price": 3739,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 19,
+        "name": "Sticker Pack",
+        "price": 1994,
+        "description": "Cool swag to show off your style",
+        "image": "https://picsum.photos/200/300",
+        "category": "Swag"
+    },
+    {
+        "_id": 20,
+        "name": "Sticker Pack",
+        "price": 1212,
+        "description": "Cool swag to show off your style",
+        "image": "https://picsum.photos/200/300",
+        "category": "Swag"
+    },
+    {
+        "_id": 21,
+        "name": "Wool Socks",
+        "price": 2495,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    },
+    {
+        "_id": 22,
+        "name": "Winter Jacket",
+        "price": 3063,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    },
+    {
+        "_id": 23,
+        "name": "Digital Alarm Clock",
+        "price": 4910,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 24,
+        "name": "Noise-Cancelling Headphones",
+        "price": 2530,
+        "description": "Innovative gadget for everyday use",
+        "image": "https://picsum.photos/200/300",
+        "category": "Gadgets"
+    },
+    {
+        "_id": 25,
+        "name": "Sports Bra",
+        "price": 4475,
+        "description": "High-quality clothing item",
+        "image": "https://picsum.photos/200/300",
+        "category": "Clothing"
+    }
+]
