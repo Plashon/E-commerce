@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-gray-600 py-10 justify-center items-center  w-10/12">
+    <footer className="bg-white text-gray-600 py-10 justify-center items-center ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Mission Section */}
         <div className="flex flex-col items-center md:items-start">

@@ -11,19 +11,19 @@ const Navbar = () => {
           <summary>Category</summary>
           <ul>
             <li>
-              <a href="">All</a>
+              <a href="/shop">All</a>
             </li>
             <li>
-              <a href="">Clothing</a>
+              <a href="/shop?clothing">Clothing</a>
             </li>
             <li>
-              <a href="">Accessories</a>
+              <a href="/shop?accessories">Accessories</a>
             </li>
             <li>
-              <a href="">Gadgets</a>
+              <a href="/shop?gadgets">Gadgets</a>
             </li>
             <li>
-              <a href="">Swag</a>
+              <a href="/shop?swag">Swag</a>
             </li>
           </ul>
         </details>
@@ -37,7 +37,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100 z-1001 sticky top-0 bg-white">
+    <div className="navbar bg-base-100 z-50 sticky top-0 bg-white">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
