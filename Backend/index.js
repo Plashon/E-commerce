@@ -1,6 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const userRouter = require("./router/user.router");
+const productRouter = require("./router/product.router");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./doc/swagger-output.json");
 
 require("dotenv").config();
 
@@ -25,6 +29,12 @@ app.get("/", (req, res) => {
   res.send("<h1>welcome to se npru web blog e-commerce restful api</h1>");
 });
 
+//router
+app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/product", productRouter);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//upload image for local
+//app.use("/upload", express.static(__dirname + "/upload"));
 app.listen(PORT, () => {
   console.log("Server is running on http://localhost:" + PORT);
 });
