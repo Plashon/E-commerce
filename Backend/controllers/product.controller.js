@@ -51,6 +51,11 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.getAllProducts = async (req, res) => {
+    /**
+    #swagger.tags = ['Product']
+    #swagger.summary = "get all  product"
+    #swagger.description = 'Endpoint to get All Products'
+ */
   try {
     const products = await ProductModel.find();
     res.json(products);
@@ -63,6 +68,11 @@ exports.getAllProducts = async (req, res) => {
 };
 
 exports.getProductById = async (req, res) => {
+    /**
+    #swagger.tags = ['Product']
+    #swagger.summary = "Get a  product"
+    #swagger.description = 'get Product By Id'
+ */
   const { id } = req.params;
   try {
     const productDetail = await ProductModel.findById(id);
@@ -80,6 +90,11 @@ exports.getProductById = async (req, res) => {
 };
 
 exports.deleteProductById = async (req, res) => {
+    /**
+    #swagger.tags = ['Product']
+    #swagger.summary = "delete a  product"
+    #swagger.description = 'delete Product By Product Id'
+ */
   const { id } = req.params;
   //   const authorId = req.userId;
   try {
@@ -103,6 +118,11 @@ exports.deleteProductById = async (req, res) => {
 };
 
 exports.updateProductById = async (req, res) => {
+    /**
+    #swagger.tags = ['Product']
+    #swagger.summary = "update product"
+    #swagger.description = 'update Product By Id'
+ */
   const { id } = req.params;
   if (!id) {
     return res.status(404).json({ message: "Product id is not provided" });
@@ -140,6 +160,11 @@ exports.updateProductById = async (req, res) => {
 };
 
 exports.getProductByUserId = async (req, res) => {
+    /**
+    #swagger.tags = ['Product']
+    #swagger.summary = "Get a new product"
+    #swagger.description = 'get Product By User Id'
+ */
   const { id } = req.params;
   try {
     const products = await ProductModel.find({ author: id })

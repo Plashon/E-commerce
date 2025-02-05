@@ -1,6 +1,11 @@
-import React from "react";
-
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import Profile from "./Profile";
+import UserIcon from "../icon/UserIcon";
+import Modal from "./Modal";
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+
   const navItems = (
     <>
       <li>
@@ -64,71 +69,43 @@ const Navbar = () => {
           </ul>
         </div>
         <a className="btn btn-ghost font-semibold text-xl">
-          <img src="/logo.png" alt="" className="w-8 h-8" />SE Souvenirs</a>
+          <img src="/logo.png" alt="" className="w-8 h-8" />
+          SE Souvenirs
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end space-x-1">
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+        {
+          //ternary operator
+          user ? (
+            <Profile />
+          ) : (
+            <div className="flex space-x-4">
+              <div
+                className="btn "
+                onClick={() =>
+                  document.getElementById("Register").showModal()
+                }
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-            </div>
-          </div>
-          <div
-            tabIndex={0}
-            className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow"
-          >
-            <div className="card-body">
-              <div className="card-actions">
-                <button className="btn btn-success btn-block">View cart</button>
+                Register{" "}
+              </div>
+              <div
+                className="btn bg-red text-white "
+                onClick={() =>
+                  document.getElementById("Login").showModal()
+                }
+              >
+                <UserIcon />
+                Login{" "}
               </div>
             </div>
-          </div>
-        </div>
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="size-9 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a className="justify-between">Profile</a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>{" "}
+          )
+        }
       </div>
+      <Modal name="Login" />
+      <Modal name="Register" />
     </div>
   );
 };

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/product.controller");
 const { upload, uploadToFirebase } = require("../middleware/file.middleware");
-const authJwt = require("../middleware/authJwt.middleware");
 
 router.post("", upload, uploadToFirebase, productController.createProduct);
 router.get("", productController.getAllProducts);

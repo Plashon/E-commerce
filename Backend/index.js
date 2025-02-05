@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const userRouter = require("./router/user.router");
 const productRouter = require("./router/product.router");
+const cartRouter = require("./router/cart.router");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./doc/swagger-output.json");
 
@@ -30,9 +31,11 @@ app.get("/", (req, res) => {
 });
 
 //router
+//http://localhost:5000/api/docs
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/product", productRouter);
-app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/v1/cart", cartRouter);
 //upload image for local
 //app.use("/upload", express.static(__dirname + "/upload"));
 app.listen(PORT, () => {

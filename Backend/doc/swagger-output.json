@@ -109,7 +109,11 @@
     },
     "/api/v1/product/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get a product",
+        "description": "get Product By Id",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +137,11 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "delete a product",
+        "description": "delete Product By Product Id",
         "parameters": [
           {
             "name": "id",
@@ -157,7 +165,11 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "update product",
+        "description": "update Product By Id",
         "parameters": [
           {
             "name": "id",
@@ -209,7 +221,11 @@
     },
     "/api/v1/product/author/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get a new product",
+        "description": "get Product By User Id",
         "parameters": [
           {
             "name": "id",
@@ -223,6 +239,194 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cart/": {
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "get All Cart Items",
+        "description": "Endpoint to get All Cart Items",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Create a new Cart",
+        "description": "Endpoint to create a new Cart",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "quantity": {
+                    "example": "any"
+                  },
+                  "price": {
+                    "example": "any"
+                  },
+                  "image": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cart/{email}": {
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "get Cart Item By Email",
+        "description": "Endpoint to get Cart Item By Email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cart/{id}": {
+      "put": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "update Cart Item",
+        "description": "Endpoint to update Cart Item",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "remove Item By Id ",
+        "description": "Endpoint to remove Item By Id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cart/clear/{email}": {
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "remove All Items",
+        "description": "Endpoint to remove All Items",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
