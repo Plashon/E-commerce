@@ -39,7 +39,7 @@ exports.createCart = async (req, res) => {
 };
 
 exports.getAllCartItems = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Cart']
     #swagger.summary = "get All Cart Items"
     #swagger.description = 'Endpoint to get All Cart Items'
@@ -59,7 +59,7 @@ exports.getAllCartItems = async (req, res) => {
 };
 
 exports.getCartItemByEmail = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Cart']
     #swagger.summary = "get Cart Item By Email"
     #swagger.description = 'Endpoint to get Cart Item By Email'
@@ -71,7 +71,7 @@ exports.getCartItemByEmail = async (req, res) => {
   }
   try {
     const cartItems = await CartModel.find({ email });
-    if (cartItems.length === 0 || !cartItems) {
+    if (!cartItems) {
       return res.status(404).json({ message: "Cart is empty" });
     }
     res.json(cartItems);
@@ -84,7 +84,7 @@ exports.getCartItemByEmail = async (req, res) => {
 };
 
 exports.updateCartItem = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Cart']
     #swagger.summary = "update Cart Item"
     #swagger.description = 'Endpoint to update Cart Item'
@@ -111,19 +111,20 @@ exports.updateCartItem = async (req, res) => {
 };
 
 exports.removeAllItems = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Cart']
     #swagger.summary = "remove All Items"
     #swagger.description = 'Endpoint to remove All Items'
  */
   const { email } = req.params;
-  if (!email) {
-    return res.status(404).json({ message: "Email is not found" });
-  }
+  console.log(email);
+  
   try {
     const cart = await CartModel.deleteMany({ email });
+    console.log(cart);
+  
     if (cart.deletedCount > 0) {
-      return res.status(404).json({ message: "Cart is cleared" });
+      return res.status(200).json({ message: "Cart is cleared" });
     }
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
@@ -138,7 +139,7 @@ exports.removeAllItems = async (req, res) => {
 };
 
 exports.removeItemById = async (req, res) => {
-     /**
+  /**
     #swagger.tags = ['Cart']
     #swagger.summary = "remove Item By Id "
     #swagger.description = 'Endpoint to remove Item By Id '

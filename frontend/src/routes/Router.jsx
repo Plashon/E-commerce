@@ -3,10 +3,9 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
 import Shop from "../pages/Shop/Index";
 import Cart from "../pages/Cart/Index";
-import SignUp from "../components/SignUp";
 import ViewProfile from "../pages/ViewProfile";
 import Setting from "../pages/Setting";
-
+import UserDetect from "./UserDetect";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,22 +21,22 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <UserDetect>
+            <Cart />
+          </UserDetect>
+        ),
       },
       {
-        path:"/profile",
-        element:<ViewProfile/>
+        path: "/profile",
+        element: <ViewProfile />,
       },
       {
-        path:"/setting",
-        element:<Setting/>
-      }
+        path: "/setting",
+        element: <Setting />,
+      },
     ],
   },
-  {
-    path:"/signup",
-    element:<SignUp/>
-  }
 ]);
 
 export default router;

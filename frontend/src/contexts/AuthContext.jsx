@@ -16,6 +16,7 @@ import {
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const auth = getAuth(app);
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -46,6 +47,7 @@ const AuthProvider = ({ children }) => {
   };
   const authInfo = {
     user,
+    isLoading,
     createUser,
     login,
     logout,
@@ -54,18 +56,22 @@ const AuthProvider = ({ children }) => {
     signUpWithFacebook,
     updateUser,
   };
+
   // check user status login or not
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currenUser) => {
       setUser(currenUser);
       if (currenUser) {
         setUser(currenUser);
+        setIsLoading(false);
       }
+      setIsLoading(false);
     });
     return () => {
       return unsubscribe;
     };
   }, [auth]);
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
