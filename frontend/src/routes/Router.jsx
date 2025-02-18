@@ -6,6 +6,15 @@ import Cart from "../pages/Cart/Index";
 import ViewProfile from "../pages/ViewProfile";
 import Setting from "../pages/Setting";
 import UserDetect from "./UserDetect";
+
+import AdminLayout from "../layouts/AdminLayout";
+import CreateProduct from "../pages/Admin/CreateProduct";
+import EditProduct from "../pages/Admin/EditProduct";
+import Dashborad from "../pages/Admin/Dashborad";
+import ManageOrders from "../pages/Admin/ManageOrders";
+import ManageItem from "../pages/Admin/ManageItem";
+import AllUser from "../pages/Admin/AllUser";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +43,36 @@ const router = createBrowserRouter([
       {
         path: "/setting",
         element: <Setting />,
+      },
+    ],
+  },
+  {
+    path: "",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashborad />,
+      },
+      {
+        path: "create",
+        element: <CreateProduct />,
+      },
+      {
+        path: "edit",
+        element: <EditProduct />,
+      },
+      {
+        path: "manage-orders",
+        element: <ManageOrders />,
+      },
+      {
+        path: "manage-product",
+        element: <ManageItem />,
+      },
+      {
+        path: "all-user",
+        element: <AllUser />,
       },
     ],
   },

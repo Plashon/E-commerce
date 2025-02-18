@@ -51,7 +51,7 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.getAllProducts = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Product']
     #swagger.summary = "get all  product"
     #swagger.description = 'Endpoint to get All Products'
@@ -68,7 +68,7 @@ exports.getAllProducts = async (req, res) => {
 };
 
 exports.getProductById = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Product']
     #swagger.summary = "Get a  product"
     #swagger.description = 'get Product By Id'
@@ -90,7 +90,7 @@ exports.getProductById = async (req, res) => {
 };
 
 exports.deleteProductById = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Product']
     #swagger.summary = "delete a  product"
     #swagger.description = 'delete Product By Product Id'
@@ -118,7 +118,7 @@ exports.deleteProductById = async (req, res) => {
 };
 
 exports.updateProductById = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Product']
     #swagger.summary = "update product"
     #swagger.description = 'update Product By Id'
@@ -160,7 +160,7 @@ exports.updateProductById = async (req, res) => {
 };
 
 exports.getProductByUserId = async (req, res) => {
-    /**
+  /**
     #swagger.tags = ['Product']
     #swagger.summary = "Get a new product"
     #swagger.description = 'get Product By User Id'
