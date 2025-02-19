@@ -4,13 +4,19 @@ import { useContext } from "react";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
+import UserService from "../services/user.service";
 
 const Modal = ({ name }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
-  const { login, createUser, signUpWithGoogle, signUpWithGithub ,signUpWithFacebook} =
-    useContext(AuthContext);
+  const {
+    login,
+    createUser,
+    signUpWithGoogle,
+    signUpWithGithub,
+    signUpWithFacebook,
+  } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -41,9 +47,10 @@ const Modal = ({ name }) => {
         });
     } else {
       createUser(data.email, data.password)
-        .then((result) => {
+        .then(async (result) => {
           const user = result.user;
           console.log(user);
+          await UserService.addUser(user.email);
           document.getElementById(name).close();
           Swal.fire({
             title: "Register",
@@ -63,16 +70,18 @@ const Modal = ({ name }) => {
 
   const googleSignUp = () => {
     signUpWithGoogle()
-    .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log(user);
+        // to do add user to database
+        await UserService.addUser(user.email);
         document.getElementById(name).close();
         Swal.fire({
-            title: "Register",
-            text: "Google Sign Up successfully!",
-            icon: "success",
-            timer: 1500,
-            showConfirmButton: false,
+          title: "Register",
+          text: "Google Sign Up successfully!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
         }).then(() => {
           navigate(from);
         });
@@ -83,9 +92,11 @@ const Modal = ({ name }) => {
   };
   const githubSignUp = () => {
     signUpWithGithub()
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log(user);
+        // to do add user to database
+        await UserService.addUser(user.email);
         document.getElementById(name).close();
         Swal.fire({
           title: "Github authenticate",
@@ -103,9 +114,11 @@ const Modal = ({ name }) => {
   };
   const facebookSignUp = () => {
     signUpWithFacebook()
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log(user);
+        // to do add user to database
+        await UserService.addUser(user.email);
         document.getElementById(name).close();
         Swal.fire({
           title: "Facebook authenticate",
@@ -214,7 +227,10 @@ const Modal = ({ name }) => {
               >
                 <FaGoogle className="size-4" />
               </button>
-              <button className="btn rounded-full" onClick={()=>facebookSignUp()}>
+              <button
+                className="btn rounded-full"
+                onClick={() => facebookSignUp()}
+              >
                 <FaFacebook className="size-4" />
               </button>
               <button

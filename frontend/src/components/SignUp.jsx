@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { AuthContext } from "./../contexts/AuthContext";
 import { useNavigate } from "react-router";
+import UserService from "./../services/UserService"; 
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
@@ -16,7 +17,9 @@ const SignUp = () => {
   } = useForm();
   const onSubmit = (data) => {
     createUser(data.email, data.password)
-      .then((result) => {
+      .then(async (result) => {
+        console.log(result);
+        await 
         Swal.fire({
           icon: "success",
           title: "Register successfully",

@@ -9,11 +9,11 @@ import UserDetect from "./UserDetect";
 
 import AdminLayout from "../layouts/AdminLayout";
 import CreateProduct from "../pages/Admin/CreateProduct";
-import EditProduct from "../pages/Admin/EditProduct";
 import Dashborad from "../pages/Admin/Dashborad";
 import ManageOrders from "../pages/Admin/ManageOrders";
 import ManageItem from "../pages/Admin/ManageItem";
 import AllUser from "../pages/Admin/AllUser";
+import ProtectAdmin from "../pages/Admin/ProtectAdmin";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
   },
   {
     path: "",
-    element: <AdminLayout />,
+    element: <ProtectAdmin><AdminLayout /></ProtectAdmin>,
     children: [
       {
         path: "dashboard",
@@ -57,10 +57,6 @@ const router = createBrowserRouter([
       {
         path: "create",
         element: <CreateProduct />,
-      },
-      {
-        path: "edit",
-        element: <EditProduct />,
       },
       {
         path: "manage-orders",

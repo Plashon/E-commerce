@@ -13,6 +13,9 @@ import {
   FacebookAuthProvider,
   updateProfile,
 } from "firebase/auth";
+import { Cookies } from "react-cookie";
+import UserService from "../services/user.service";
+const cookies = new Cookies();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -45,10 +48,16 @@ const AuthProvider = ({ children }) => {
       photoURL: profile,
     });
   };
+  const getUser = () => {
+    const userInfo = cookies.get("user") || null;
+    return userInfo;
+  };
+
   const authInfo = {
     user,
     isLoading,
     createUser,
+    getUser,
     login,
     logout,
     signUpWithGoogle,
@@ -59,14 +68,23 @@ const AuthProvider = ({ children }) => {
 
   // check user status login or not
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currenUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currenUser) => {
       setUser(currenUser);
       if (currenUser) {
         setUser(currenUser);
         setIsLoading(false);
+        const { email } = currenUser;
+        const { data } = await UserService.signJwt(email);
+        console.log(data);
+        if (data) {
+          cookies.set("user", data);
+        }
+      } else {
+        cookies.remove("user");
       }
       setIsLoading(false);
     });
+
     return () => {
       return unsubscribe;
     };

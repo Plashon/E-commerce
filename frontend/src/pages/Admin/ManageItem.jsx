@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import ProductService from "../../services/product.service";
 import Swal from "sweetalert2";
-import { FaTrash } from "react-icons/fa";
 
 const ManageItem = () => {
   const [products, setProducts] = useState([]);
@@ -62,7 +61,35 @@ const ManageItem = () => {
   };
 
   const handleSaveChanges = async () => {
-    // Implement save changes logic here
+    const formData = new FormData();
+    formData.append("name", selectedProduct.name);
+    formData.append("description", selectedProduct.description);
+    formData.append("price", selectedProduct.price);
+    formData.append("category", selectedProduct.category);
+    if (selectedProduct.picture instanceof File) {
+      formData.append("file", selectedProduct.picture); // Use 'file' if the backend expects 'file'
+    }
+    try {
+      const response = await ProductService.updateProduct(
+        selectedProduct._id,
+        formData
+      );
+      const updatedProduct = response.data;
+      const updatedProducts = products.map((product) =>
+        product._id === selectedProduct._id ? updatedProduct : product
+      );
+      setProducts(updatedProducts);
+      Swal.fire({
+        icon: "success",
+        title: "Product updated successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    setSelectedProduct(null);
     setIsModalOpen(false);
   };
 
@@ -169,18 +196,21 @@ const ManageItem = () => {
 
       {isModalOpen && selectedProduct && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 animate-fade-in">
-          <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+          <div className="bg-white p-4 rounded-lg shadow-xl w-full max-w-sm">
+            <h2 className="text-xl font-semibold text-gray-800 mb-3 text-center">
               Edit Product
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {/* Name Input */}
               <div>
-                <label className="block text-gray-600 font-medium">Name</label>
+                <label htmlFor="name" className="block text-gray-600 text-sm">
+                  Name
+                </label>
                 <input
+                  id="name"
                   type="text"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                   value={selectedProduct.name}
                   onChange={(e) =>
                     setSelectedProduct({
@@ -193,12 +223,17 @@ const ManageItem = () => {
 
               {/* Description Input */}
               <div>
-                <label className="block text-gray-600 font-medium">
+                <label
+                  htmlFor="description"
+                  className="block text-gray-600 text-sm"
+                >
                   Description
                 </label>
                 <textarea
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+                  id="description"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none resize-none"
                   value={selectedProduct.description}
+                  rows={2}
                   onChange={(e) =>
                     setSelectedProduct({
                       ...selectedProduct,
@@ -210,10 +245,13 @@ const ManageItem = () => {
 
               {/* Price Input */}
               <div>
-                <label className="block text-gray-600 font-medium">Price</label>
+                <label htmlFor="price" className="block text-gray-600 text-sm">
+                  Price
+                </label>
                 <input
+                  id="price"
                   type="number"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                   value={selectedProduct.price}
                   onChange={(e) =>
                     setSelectedProduct({
@@ -226,12 +264,16 @@ const ManageItem = () => {
 
               {/* Category Input */}
               <div>
-                <label className="block text-gray-600 font-medium">
+                <label
+                  htmlFor="category"
+                  className="block text-gray-600 text-sm"
+                >
                   Category
                 </label>
                 <input
+                  id="category"
                   type="text"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                   value={selectedProduct.category}
                   onChange={(e) =>
                     setSelectedProduct({
@@ -244,19 +286,26 @@ const ManageItem = () => {
 
               {/* Picture Input */}
               <div>
-                <label className="block text-gray-600 font-medium">
+                <label
+                  htmlFor="picture"
+                  className="block text-gray-600 text-sm"
+                >
                   Picture
                 </label>
-                {selectedProduct.picture && (
-                  <img
-                    src={URL.createObjectURL(selectedProduct.picture)}
-                    alt="Current"
-                    className="w-full h-40 object-cover mb-3 rounded-lg"
-                  />
-                )}
+                <img
+                  src={
+                    selectedProduct.picture
+                      ? URL.createObjectURL(selectedProduct.picture)
+                      : selectedProduct.image || "/placeholder-image.jpg"
+                  }
+                  alt={selectedProduct.name || "Product Image"}
+                  className="w-full h-32 object-cover mb-2 rounded-md shadow-sm"
+                />
+
                 <input
+                  id="picture"
                   type="file"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="hidden"
                   onChange={(e) =>
                     setSelectedProduct({
                       ...selectedProduct,
@@ -264,22 +313,28 @@ const ManageItem = () => {
                     })
                   }
                 />
+                <label
+                  htmlFor="picture"
+                  className="cursor-pointer block text-center text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md shadow-md w-full mt-1 text-sm"
+                >
+                  Upload Image
+                </label>
               </div>
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end space-x-2 mt-5">
+            <div className="flex justify-end space-x-2 mt-4">
               <button
-                className="btn btn-outline btn-sm px-5"
+                className="btn btn-outline btn-xs px-4"
                 onClick={handleCloseModal}
               >
                 Cancel
               </button>
               <button
-                className="btn btn-primary btn-sm px-5"
+                className="btn btn-primary btn-xs px-4"
                 onClick={handleSaveChanges}
               >
-                Save Changes
+                Save
               </button>
             </div>
           </div>

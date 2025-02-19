@@ -42,7 +42,11 @@ const getProductById = async (id) => {
 };
 
 const updateProduct = async (id, product) => {
-  return await api.put(`${API_URL}/${id}`, product);
+  return await api.put(`${API_URL}/${id}`, product, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 const deleteProductById = async (id) => {
