@@ -1,13 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 const userRouter = require("./router/user.router");
 const productRouter = require("./router/product.router");
 const cartRouter = require("./router/cart.router");
+const orderRouter = require("./router/order.router");
+const stripeRouter = require("./router/stripe.router");
+
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./doc/swagger-output.json");
 
-require("dotenv").config();
+
 
 const BASE_URL = process.env.BASE_URL;
 const PORT = process.env.PORT;
@@ -24,6 +28,8 @@ try {
 }
 //allow web can connect app
 app.use(cors({ origin: BASE_URL, credentials: true }));
+//stripe webhook middleware, must be before express.json()
+app.use("/api/v1/stripe/webhook",express.raw({type:"application/json"}));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -34,9 +40,11 @@ app.get("/", (req, res) => {
 //http://localhost:5000/api/docs
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/product", productRouter);
+app.use("/api/v1/products", productRouter);
 app.use("/api/v1/cart", cartRouter);
-//upload image for local
+app.use("/api/v1/stripe", stripeRouter);
+app.use("/api/v1/order",orderRouter);
+
 //app.use("/upload", express.static(__dirname + "/upload"));
 app.listen(PORT, () => {
   console.log("Server is running on http://localhost:" + PORT);

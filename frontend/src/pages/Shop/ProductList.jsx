@@ -16,20 +16,27 @@ const ProductList = () => {
 
   const categoryQuery = searchParam.get("category") || "all";
   const itemPerPageQuery = searchParam.get("itemPerPage") || 4
+  
   useEffect(() => {
     setSelectedCategory(categoryQuery);
     setItemPerPage(itemPerPageQuery)
   }, [categoryQuery,itemPerPageQuery]);
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await ProductService.getAllProducts();
-      //console.log(response);
-      setProducts(response.data);
-      setFilteredItems(response.data);
-      setCategories([
-        "all",
-        ...new Set(response.data.map((item) => item.category)),
-      ]);
+      try {
+        console.log("fetching data");
+        const response = await ProductService.getAllProducts();
+        console.log(response);
+        setProducts(response.data);
+        setFilteredItems(response.data);
+        setCategories([
+          "all",
+          ...new Set(response.data.map((item) => item.category)),
+        ]);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     };
     fetchData();
   }, []);

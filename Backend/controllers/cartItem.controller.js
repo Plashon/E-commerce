@@ -118,7 +118,6 @@ exports.removeAllItems = async (req, res) => {
  */
   const { email } = req.params;
   console.log(email);
-  
   try {
     const cart = await CartModel.deleteMany({ email });
     console.log(cart);

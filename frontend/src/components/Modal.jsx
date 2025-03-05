@@ -44,6 +44,12 @@ const Modal = ({ name }) => {
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+            title: "Login Failed",
+            text:  "Invalid email or password." ||err.message,
+            icon: "error",
+            confirmButtonText: "Try Again",
+          });
         });
     } else {
       createUser(data.email, data.password)

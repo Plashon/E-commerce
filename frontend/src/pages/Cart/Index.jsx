@@ -4,6 +4,7 @@ import useCart from "./../../Hooks/useCart";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthContext";
 import { FaTrash } from "react-icons/fa";
+import PaymentButton from "../../components/PaymentButton";
 
 const Index = () => {
   const [cart, refetch] = useCart();
@@ -292,15 +293,21 @@ const Index = () => {
                 <h3 className="text-lg font-semibold">Shopping Details</h3>
                 <p>Total Items: {cart.length}</p>
                 <p>Total Price: {formatPrice(calculateTotalPrice(cart))}</p>
-                <button className="btn bg-red text-white">
-                  Proceed to Checkout
-                </button>
+                <PaymentButton cartItem={cart} />
               </div>
             </div>
           </div>
         ) : (
           <div className="text-xl font-bold text-center text-red">
             Shopping cart is Empty!
+            <p>
+              <a
+                href="/shop"
+                className="btn btn-ghost text-white hover:border-red bg-red hover:bg-white hover:text-black"
+              >
+                Go Shopping
+              </a>
+            </p>
           </div>
         )}
       </div>

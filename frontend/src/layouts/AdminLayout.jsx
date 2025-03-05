@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router";
 import logo from "/logo.png";
 import "./main.css";
 import { MdDashboard } from "react-icons/md";
+import { MdHome } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 import { AiOutlineProduct } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
+import { AuthContext } from "../contexts/AuthContext";
 
 const AdminLayout = () => {
+  const { user, logout } = useContext(AuthContext);
   const isAdmin = true;
   return (
     <div>
@@ -29,10 +32,11 @@ const AdminLayout = () => {
               {/* Sidebar content here */}
               <li>
                 <a href="/dashboard" className="flex justify-start mb-3 ">
-                  <img src={logo} className="w-20" />
-                  <div className="badge">admin</div>
+                  <img src={logo} className="w-10 h-10" />
+                  <div className="badge">admin {user.displayName}</div>
                 </a>
               </li>
+
               <div class="relative flex py-5 items-center">
                 <div class="flex-grow border-t border-gray-400"></div>
                 <span class="flex-shrink mx-4 text-gray-400">Menu</span>
@@ -74,18 +78,22 @@ const AdminLayout = () => {
                 <div class="flex-grow border-t border-gray-400"></div>
               </div>
               <li>
-                <a href="/create">Home</a>
+                <a href="/">Home</a>
               </li>
               <li>
-                <a href="/create">Product</a>
+                <a href="/shop">Product</a>
               </li>
               <li>
-                <a href="/create">Order Tracking</a>
+                <a href="/cart">Order Tracking</a>
               </li>
               <li>
                 <a href="/create">Customer Support</a>
               </li>
+              <li>
+              <a onClick={() => logout()}>Logout</a>
+            </li>
             </ul>
+           
           </div>
         </div>
       ) : (

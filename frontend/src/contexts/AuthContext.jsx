@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
         setUser(currenUser);
         setIsLoading(false);
         const { email } = currenUser;
-        const { data } = await UserService.signJwt(email);
+        const { data } = await UserService.sign(email);
         console.log(data);
         if (data) {
           cookies.set("user", data);

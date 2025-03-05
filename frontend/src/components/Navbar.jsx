@@ -68,7 +68,7 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <a className="btn btn-ghost font-semibold text-xl">
+        <a className="btn btn-ghost font-semibold text-xl" href="/">
           <img src="/logo.png" alt="" className="w-8 h-8" />
           SE Souvenirs
         </a>

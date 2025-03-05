@@ -58,6 +58,7 @@ exports.getAllProducts = async (req, res) => {
  */
   try {
     const products = await ProductModel.find();
+    console.log(products);
     res.json(products);
   } catch (error) {
     res.status(500).send({

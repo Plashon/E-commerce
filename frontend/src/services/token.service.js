@@ -3,8 +3,7 @@ const cookies = new Cookies();
 
 const getLocalAccessToken = () => {
   const user = getUser();
-  console.log(user);
-  return user?.accessToken;
+  return user?.token;
 };
 
 const getUser = () => {
@@ -12,7 +11,7 @@ const getUser = () => {
   return user;
 };
 
-const setUser = (user) => { 
+const setUser = (user) => {
   cookies.set("user", JSON.stringify(user), {
     path: "/",
     expires: new Date(Date.now() + 864000),
