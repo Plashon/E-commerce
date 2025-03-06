@@ -1,4 +1,4 @@
-const OrderModel = require("../models/Order")
+const OrderModel = require("../models/Order");
 
 exports.getAllOrders = async (req, res) => {
   try {
@@ -16,6 +16,9 @@ exports.getAllOrders = async (req, res) => {
 
 exports.getOrderById = async (req, res) => {
   const { id } = req.params;
+  if (!id) {
+    return res.status(404).json({ message: "id is require" });
+  }
   try {
     const orderDetail = await OrderModel.findById(id);
     if (!orderDetail) {
@@ -29,3 +32,48 @@ exports.getOrderById = async (req, res) => {
     });
   }
 };
+
+exports.updateOrderDetail = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(404).json({ message: "id is require" });
+  }
+  try {
+    const orderDetail = await OrderModel.findById(id);
+    if (!orderDetail) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    const { deliver_status } = req.body;
+    if (!deliver_status) {
+      return res.status(400).json({ message: "deliver_status is require" });
+    }
+    orderDetail.deliver_status = deliver_status;
+    await orderDetail.save();
+    res.json(orderDetail);
+
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({
+      message: "Something error occurred while Updating order detail",
+    });
+  }
+};
+
+exports.deleteOrder = async (req, res) => {
+  const {id} = req.params;
+  if (!id) {
+    return res.status(404).json({ message: "id is require" });
+  }
+  try {
+    const order = await OrderModel.findByIdAndDelete(id);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    res.json({ message: "Order deleted successfully" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({
+      message: "Something error occurred while deleting order",
+    });
+  }
+}  
