@@ -63,6 +63,7 @@ const Profile = () => {
                   Profile
                 </a>
               </li>
+              <li><a href="/dashboard">Dashboard</a></li>
               <li>
                 <a href="/setting">Settings</a>
               </li>
@@ -81,7 +82,7 @@ const Profile = () => {
                 Profile
               </a>
             </li>
-            <li><a href="/dashboard">Dashboard</a></li>
+            
             <li>
               <a href="/setting">Settings</a>
             </li>
