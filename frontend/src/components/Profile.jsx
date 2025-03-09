@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import useCart from "../Hooks/useCart";
-import Dashborad from "./../pages/Admin/Dashborad";
 
 const Profile = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, getUser } = useContext(AuthContext);
   const [cart, refetch] = useCart();
+
+  const userInfo = getUser();
   return (
     <div className="flex space-x-4">
       <div className="dropdown dropdown-end ">
@@ -50,48 +51,29 @@ const Profile = () => {
               />
             )}
           </div>
-          {user.role ? (
-          user.role === "admin" ? (
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between" href="/profile">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a href="/dashboard">Dashboard</a>
-              </li>
-              <li>
-                <a href="/setting">Settings</a>
-              </li>
-              <li>
-                <a onClick={() => logout()}>Logout</a>
-              </li>
-            </ul>
-          ) : (
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between" href="/profile">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a href="/setting">Settings</a>
-              </li>
-              <li>
-                <a onClick={() => logout()}>Logout</a>
-              </li>
-            </ul>
-          )
-        ) : null}
         </div>
-      </div>{" "}
+        <ul
+          tabIndex={0}
+          className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+        >
+          <li>
+            <a className="justify-between" href="/profile">
+              Profile
+            </a>
+          </li>
+          {userInfo && userInfo.role === "admin" && (
+            <li>
+              <a href="/dashboard">dashboard</a>
+            </li>
+          )}
+          <li>
+            <a href="/setting">Settings</a>
+          </li>
+          <li>
+            <a onClick={() => logout()}>Logout</a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
