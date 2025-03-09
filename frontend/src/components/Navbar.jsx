@@ -3,6 +3,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import Profile from "./Profile";
 import UserIcon from "../icon/UserIcon";
 import Modal from "./Modal";
+
 const Navbar = () => {
   const { user } = useContext(AuthContext);
 

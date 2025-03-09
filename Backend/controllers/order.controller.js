@@ -2,7 +2,7 @@ const OrderModel = require("../models/Order");
 
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await OrderModel.find();
+    const orders = await OrderModel.find().populate("products.productId");
     if (!orders) {
       return res.status(404).json({ message: "No Orders" });
     }
@@ -16,19 +16,28 @@ exports.getAllOrders = async (req, res) => {
 
 exports.getOrderById = async (req, res) => {
   const { id } = req.params;
-  if (!id) {
-    return res.status(404).json({ message: "id is require" });
-  }
+
   try {
-    const orderDetail = await OrderModel.findById(id);
-    if (!orderDetail) {
+    console.log("Fetching order with ID:", id);
+
+    if (!id || id.length !== 24) {
+      return res.status(400).json({ message: "Invalid Order ID" });
+    }
+
+    const orderDoc = await OrderModel.findById(id).populate(
+      "products.productId"
+    );
+
+    if (!orderDoc) {
       return res.status(404).json({ message: "Order not found" });
     }
-    res.json(orderDetail);
+
+    res.json(orderDoc);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send({
-      message: "Something error occurred while getting order detail",
+    console.error("Error fetching order:", error.message);
+    res.status(500).json({
+      message: "An error occurred while fetching order details",
+      error: error.message,
     });
   }
 };

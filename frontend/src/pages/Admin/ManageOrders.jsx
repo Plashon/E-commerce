@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import OrderService from "../../services/order.service";
 import Swal from "sweetalert2";
 import { MdDelete, MdVisibility } from "react-icons/md";
+import OrderDetail from "../../components/OrderDetail";
 
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchEmail, setSearchEmail] = useState("");
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -22,6 +24,12 @@ const ManageOrders = () => {
     fetchOrders();
   }, []);
 
+  useEffect(() => {
+    if (selectedOrder && modalRef.current) {
+      modalRef.current.showModal();
+    }
+  }, [selectedOrder]);
+
   const handleStatusChange = async (orderId, newStatus) => {
     Swal.fire({
       title: "Are you sure?",
@@ -34,7 +42,9 @@ const ManageOrders = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await OrderService.updateOrderDetail(orderId, { deliver_status: newStatus });
+          await OrderService.updateOrderDetail(orderId, {
+            deliver_status: newStatus,
+          });
           setOrders((prevOrders) =>
             prevOrders.map((order) =>
               order._id === orderId
@@ -42,7 +52,11 @@ const ManageOrders = () => {
                 : order
             )
           );
-          Swal.fire("Updated!", "The order status has been updated.", "success");
+          Swal.fire(
+            "Updated!",
+            "The order status has been updated.",
+            "success"
+          );
         } catch (error) {
           console.error("Error updating order status:", error);
           Swal.fire("Error!", "Failed to update the order status.", "error");
@@ -76,10 +90,8 @@ const ManageOrders = () => {
     });
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // In a real application, this would fetch filtered data from backend
-    console.log("Searching for email:", searchEmail);
+  const openOrderDetails = (order) => {
+    setSelectedOrder(order);
   };
 
   if (loading) {
@@ -121,7 +133,11 @@ const ManageOrders = () => {
                   </td>
                   <td className="p-3 border">{order.shipping.email}</td>
                   <td className="p-3 border">
-                    {order.total.toLocaleString()} THB
+                    {new Intl.NumberFormat("th-TH", {
+                      style: "currency",
+                      currency: "THB",
+                      minimumFractionDigits: 2,
+                    }).format((order.total / 100).toFixed(2))}
                   </td>
                   <td className="p-3 border">
                     <span
@@ -152,7 +168,7 @@ const ManageOrders = () => {
                     <button
                       className="bg-green-500 text-white p-2 rounded-full"
                       title="View Details"
-                      //onClick={() => handleViewDetails(order)}
+                      onClick={() => openOrderDetails(order)}
                     >
                       <MdVisibility size={20} />
                     </button>
@@ -170,6 +186,7 @@ const ManageOrders = () => {
           </tbody>
         </table>
       </div>
+      <OrderDetail ref={modalRef} order={selectedOrder} />
     </div>
   );
 };
