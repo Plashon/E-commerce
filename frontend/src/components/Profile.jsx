@@ -50,8 +50,7 @@ const Profile = () => {
               />
             )}
           </div>
-        </div>
-        {user.role ? (
+          {user.role ? (
           user.role === "admin" ? (
             <ul
               tabIndex={0}
@@ -91,6 +90,7 @@ const Profile = () => {
             </ul>
           )
         ) : null}
+        </div>
       </div>{" "}
     </div>
   );
